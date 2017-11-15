@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+	<f:event type="preRenderView"
+		listener="#{personController.loadPerson()}" />
+</f:metadata>
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Telefon Defteri</title>
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+
+<h:body>
+	<div id="wrapper">
+		<div class="well text-center">
+			<h2>Telefon Defteri</h2>
+		</div>
+	</div>
+
+	<div class="container">
+		<div id="content">
+			<h:messages globalOnly="true" />
+			<h:form>
+				<h:button value="Kayıt Ekle" class="btn btn-info"
+					outcome="kayitekle" />
+				<div class="input-group">
+					<h:inputText style="width: 250px; margin: 0px" class="form-control"
+						value="#{personController.search}" />
+					<h:commandButton value="Kayıt Ara" class="btn btn-info"
+						style="border-radius: 0 4px 4px 0;"
+						action="#{personController.searchPerson(personController.search)}">
+
+					</h:commandButton>
+				</div>
+			</h:form>
+			<br /> <br />
+
+			<h:form>
+				<h:dataTable value="#{personController.personList}" var="tempPerson"
+					class="table table-striped table-hover table-bordered text-center">
+
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Ad</div>
+						</f:facet>
+							#{tempPerson.firstName}
+						</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Soyad</div>
+						</f:facet>
+							#{tempPerson.lastName}
+						</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Email</div>
+						</f:facet>
+							#{tempPerson.email}
+						</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Numara</div>
+						</f:facet>
+							#{tempPerson.phoneNumber}
+						</h:column>
+
+
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Güncelle</div>
+						</f:facet>
+
+						<h:commandButton value="Güncelle"
+							action="#{personController.loadPerson(tempPerson.id)}"
+							class="btn btn-primary" />
+
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<div align="center">Sil</div>
+						</f:facet>
+						<h:commandButton value="Sil"
+							onclick="if (!confirm('Bu kişiyi silmek istediğinizden emin misiniz?')) return false"
+							action="#{personController.deletePerson(tempPerson.id)}"
+							class="btn btn-danger" />
+
+					</h:column>
+				</h:dataTable>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

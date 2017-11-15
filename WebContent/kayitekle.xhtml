@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Kayıt Ekle</title>
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+		<div class="well text-center">
+			<h2>Telefon Defteri</h2>
+		</div>
+	</div>
+
+	<div class="container">
+			<h:button value="Telefon Defterine Dön" class="btn btn-primary"
+				style="margin-bottom: 15px"				
+				outcome="kayitlistesi" />
+			<div class="panel panel-info">
+			<div class="panel-heading">Kayıt Ekle</div>
+
+			<h:messages globalOnly="true" />
+			<div class="panel-body">
+			<h:form id="form" style="margin-top: 10px;">
+				<h:panelGrid columns="3">
+
+					<h:outputLabel> Ad: </h:outputLabel>
+					<h:inputText value="#{person.firstName}" class="form-control"
+						id="firstName" required="true" requiredMessage="(*)"
+						validatorMessage="Geçersiz Ad!" a:placeholder="Ad">
+						<f:validateRegex pattern="^[a-zA-Z]+( [a-zA-Z]+)*$" />
+					</h:inputText>
+					<h:message for="firstName" style="color:red; margin: 15px;" />
+
+					<h:outputLabel> Soyad: </h:outputLabel>
+					<h:inputText value="#{person.lastName}" class="form-control"
+						id="lastName" required="true" requiredMessage="(*)"
+						validatorMessage="Geçersiz Soyad!" a:placeholder="Soyad">
+						<f:validateRegex pattern="[a-zA-Z]+" />
+					</h:inputText>
+					<h:message for="lastName" style="color:red; margin: 15px;" />
+
+					<h:outputLabel> Email: </h:outputLabel>
+					<h:inputText value="#{person.email}" class="form-control"
+						id="email" required="true" requiredMessage="(*)"
+						validatorMessage="Geçersiz E-mail Adresi!" a:placeholder="Email">
+						<f:validateRegex
+							pattern="^[A-Za-z0-9-+]+(\.[A-Za-z0-9+-])*@[A-Za-z0-9-]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$" />
+					</h:inputText>
+					<h:message for="email" style="color:red; margin: 15px;" />
+
+					<h:outputLabel> Numara: </h:outputLabel>
+					<h:inputText value="#{person.phoneNumber}" id="number"
+						required="true" requiredMessage="(*)" class="form-control"
+						validatorMessage="Geçersiz Numara!"
+						a:placeholder="Numara(555-4443322)">
+						<f:validateRegex pattern="^\+?[0-9]{3}-[0-9]{6,12}$" />
+					</h:inputText>
+					<h:message for="number" style="color:red; margin: 15px;" />
+
+					<h:commandButton value="Ekle" class="btn btn-info"
+						style="width: 100px;"
+						action="#{personController.addPerson(person)}" />
+
+				</h:panelGrid>
+			</h:form>
+		</div>
+
+	</div>
+	</div>
+</h:body>
+</html>
